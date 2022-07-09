@@ -79,68 +79,6 @@ object Utils {
     }
 
 
-    fun getRealPathFromURI(contentUri: Uri): String? {
-//        val context: Context = this@SignupActivity
-        var cursor: Cursor? = null
-        return try {
-            val proj = arrayOf(MediaStore.Images.Media.DATA)
-            cursor = context?.contentResolver?.query(contentUri, proj, null, null, null)
-            val column_index = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            cursor.moveToFirst()
-            cursor.getString(column_index)
-        } catch (e: Exception) {
-            Log.e("Err", "getRealPathFromURI Exception : $e")
-            ""
-        } finally {
-            cursor?.close()
-        }
-    }
-
-
-    fun saveImageAfterCropping(selected_image: String): File? {
-        Log.d("##Cropped Image Path##", " $selected_image")
-        if (!TextUtils.isEmpty(selected_image)) {
-            val bitmap = BitmapFactory.decodeFile(selected_image)
-            val bytesGalleryImage = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytesGalleryImage)
-//            val extStorageDirectory = Environment.getExternalStorageDirectory().absolutePath
-            val file = getRootDirPath(context!!)
-//            val ImageFolder = File(file, "/THEFaces/Images")
-//            if (!ImageFolder.exists()) {
-//                ImageFolder.mkdirs()
-//            }
-            val ImageFile = File(file, System.currentTimeMillis().toString() + ".png")
-            val fo: FileOutputStream
-            try {
-                ImageFile.createNewFile()
-                fo = FileOutputStream(ImageFile)
-                fo.write(bytesGalleryImage.toByteArray())
-                fo.close()
-            } catch (e: FileNotFoundException) {
-                e.printStackTrace()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-            return ImageFile
-        } else {
-            CustomToast.makeToast("Can't Crop the image..")
-        }
-        return null
-    }
-
-
-    private fun getRootDirPath(context: Context): String {
-        return if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
-            val file: File = ContextCompat.getExternalFilesDirs(
-                context.applicationContext,
-                null
-            )[0]
-            file.absolutePath
-        } else {
-            context.applicationContext.filesDir.absolutePath
-        }
-    }
 
 
 }
