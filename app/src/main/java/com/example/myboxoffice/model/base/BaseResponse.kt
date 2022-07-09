@@ -9,8 +9,6 @@ import com.google.gson.annotations.Expose
 
 open class BaseResponse<T>(t: T? = null) : Serializable {
 
-
-
     @SerializedName("results")
     open val results: T? = t
 

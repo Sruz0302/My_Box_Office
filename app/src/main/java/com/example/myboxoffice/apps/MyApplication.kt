@@ -7,10 +7,8 @@ import com.example.myboxoffice.utils.Utils
 class MyApplication : Application() {
 
 
-
     override fun onCreate() {
         super.onCreate()
-
 
         CustomToast.applicationReference(this)
         Utils.applicationReference(this)
@@ -18,7 +16,6 @@ class MyApplication : Application() {
 
 
     }
-
 
     companion object {
         fun getInstance() : MyApplication.Companion {

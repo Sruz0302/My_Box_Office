@@ -15,7 +15,6 @@ import java.net.URLConnection
 
 class MovieResponse: BaseResponse<ArrayList<MovieResponse.Item>>() {
 
-
     data class Item(
         val title: String? = "",
         val overview: String? = "",
